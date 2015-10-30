@@ -20,8 +20,8 @@ BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-
   * (Linux) `user@host: sudo pip install beautifulsoup4`
   * (Windows) `C:\Python27\Scripts>pip install beautifulsoup4`
 
-3. `git clone https://github.com/tintinno/DITA2Trisoft`
-4. `cd DITA2Trisoft`
+3. `git clone https://github.com/tintinno/fixfilemap`
+4. `cd fixfilemap`
 
 ### Fixing `filemap.xml`
 
