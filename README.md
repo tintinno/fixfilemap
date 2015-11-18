@@ -7,7 +7,10 @@ an `ishfield` element is missing from one or more `ishfields` elements.
 
 ```<ishfield name="FMODULETYPE" level="logical">Task</ishfield>```
 
-`fixfilemap.py` corrects this.
+`fixfilemap.py` corrects for these error messages:
+
+# ```The field "FMASTERTYPE" does not have enough values```
+# ```The field "FMODULETYPE" does not have enough values```
 
 ### Installation
 
