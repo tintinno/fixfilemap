@@ -1,17 +1,18 @@
 #!/bin/python
 
 from bs4 import BeautifulSoup
+from os import path, chdir
 import os, sys
 
-homedir = os.path.expanduser('~')
-importdir = os.path.join(homedir, 'Desktop/import')
+homedir = path.expanduser('~')
+importdir = path.join(homedir, 'Desktop/import')
 
 if sys.version_info.major > 2:
 	raise SystemExit('Use Python 2.')
 
 # tests
 try:
-	os.chdir(importdir)
+	chdir(importdir)
 except:
 	raise SystemExit('Create /Desktop/import')
 
@@ -57,24 +58,28 @@ for ish in ishes:
 		# if parent element's ishtype value is 'ISHIllustration' then we
 		# need to add the ishfield for images, using Default as the string
 		if ish.parent['ishtype'] == 'ISHIllustration':
+			ish.parent.parent['targetfolder'] = "Import\\images"
 			ishfield = ishmaker('FRESOLUTION','lng','Default')
 			soup = addishfield(soup,ish,ishfield)
 
 		# if parent element's ishtype value is 'ISHMasterDoc' then we have
 		# a map, so use Map as the string
 		elif ish.parent['ishtype'] == 'ISHMasterDoc':
+			ish.parent.parent['targetfolder'] = "Import\\maps"
 			ishfield = ishmaker('FMASTERTYPE','logical','Map')
 			soup = addishfield(soup,ish,ishfield)
 		
 		# if parent element's ishtype value is 'ISHUnknown' then we have a
 		# topic.xml file, requiring no action
 		elif ish.parent['ishtype'] == 'ISHUnknown':
+			print "Ignoring %s" % ish.parent.parent['filepath']
 			pass
 
 		# if parent element's ishtype value is 'ISHModule' then we have a
 		# normal topic. Open the file referenced via 'filepath' attribute
 		# and determine it's topic type
 		elif ish.parent['ishtype'] == 'ISHModule':
+			ish.parent.parent['targetfolder'] = "Import\\topics"
 			filename = ish.parent.parent['filepath']
 
 			with open(filename,'r') as f:
@@ -84,6 +89,15 @@ for ish in ishes:
 			ttype = gettype(docsoup)
 			ishfield = ishmaker('FMODULETYPE','logical',ttype)
 			soup = addishfield(soup,ish,ishfield)
+
+# Use Default as FRESOLUTION value
+for ish in soup('ishfield',{'name':'FRESOLUTION'}):
+	ish.string = "Default"
+
+# When the Destop/import folder contains subfolders, we need to correct 
+# the targetfolder parameter.
+for ish in ishes:
+
 
 # write changes to file
 content = str(soup)
