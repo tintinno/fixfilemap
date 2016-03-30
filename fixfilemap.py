@@ -94,11 +94,6 @@ for ish in ishes:
 for ish in soup('ishfield',{'name':'FRESOLUTION'}):
 	ish.string = "Default"
 
-# When the Destop/import folder contains subfolders, we need to correct 
-# the targetfolder parameter.
-for ish in ishes:
-
-
 # write changes to file
 content = str(soup)
 with open('filemap.xml','w') as out:
