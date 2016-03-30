@@ -48,7 +48,7 @@ def gettype(soup):
 	return string
 	
 # main
-soup = BeautifulSoup(filemap,'xml')
+soup = BeautifulSoup(filemap,'html.parser')
 ishes = soup('ishfields')
 
 for ish in ishes:
@@ -85,7 +85,7 @@ for ish in ishes:
 			with open(filename,'r') as f:
 				doc = f.read()
 			doc = doc.decode("utf-16")
-			docsoup = BeautifulSoup(doc,'xml')
+			docsoup = BeautifulSoup(doc,'html.parser')
 			ttype = gettype(docsoup)
 			ishfield = ishmaker('FMODULETYPE','logical',ttype)
 			soup = addishfield(soup,ish,ishfield)
