@@ -2,12 +2,12 @@
 
 from bs4 import BeautifulSoup
 from os import path, chdir
-import os, sys
+from sys import version_info
 
 homedir = path.expanduser('~')
 importdir = path.join(homedir, 'Desktop/import')
 
-if sys.version_info.major > 2:
+if version_info.major > 2:
 	raise SystemExit('Use Python 2.')
 
 # tests
